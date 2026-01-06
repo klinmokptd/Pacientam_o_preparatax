@@ -89,7 +89,7 @@
             color: #856404;
             width: 100%;
             text-align: left;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
         
         .drug-selector {
@@ -226,7 +226,7 @@
             text-justify: inter-word;
             transition: var(--transition);
             width: 100%;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             line-height: 1.65;
             word-spacing: normal;
         }
@@ -266,11 +266,6 @@
             -webkit-box-decoration-break: clone;
         }
         
-        /* Убираем лишние пробелы вокруг выделения */
-        .key-point + .punctuation {
-            margin-left: -2px;
-        }
-        
         footer {
             text-align: center;
             margin-top: 30px;
@@ -299,12 +294,12 @@
             }
             
             header h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 gap: 10px;
             }
             
             header h1 i {
-                font-size: 1.7rem;
+                font-size: 1.8rem;
             }
             
             header p {
@@ -315,11 +310,11 @@
                 padding: 12px;
                 margin: 15px 0;
                 border-radius: 4px;
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             
             .drug-selector h2 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .drug-selector {
@@ -334,7 +329,7 @@
             
             .drug-btn {
                 padding: 15px;
-                font-size: 1.05rem;
+                font-size: 1.1rem;
                 min-width: 100%;
                 width: 100%;
                 max-width: 100%;
@@ -342,7 +337,7 @@
             }
             
             .drug-btn i {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .drug-info-container {
@@ -360,14 +355,14 @@
             }
             
             .drug-title {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
                 gap: 10px;
             }
             
             .drug-icon {
                 width: 50px;
                 height: 50px;
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
             
             .drug-text-content {
@@ -380,7 +375,7 @@
             .text-paragraph {
                 margin-bottom: 20px;
                 padding-left: 12px;
-                font-size: 1rem;
+                font-size: 1.1rem;
                 line-height: 1.6;
                 text-align: justify;
                 word-spacing: normal;
@@ -413,23 +408,23 @@
         /* Еще меньшие экраны */
         @media (max-width: 480px) {
             .drug-title {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .drug-icon {
                 width: 45px;
                 height: 45px;
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .text-paragraph {
-                font-size: 0.98rem;
+                font-size: 1.05rem;
                 text-align: justify;
                 word-spacing: normal;
             }
             
             header h1 {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
         }
         
@@ -446,7 +441,7 @@
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-prescription-bottle"></i> Противотуберкулезные препараты</h1>
+        <h1>Противотуберкулезные препараты</h1>
         <p>Информация для пациентов о приеме препаратов</p>
     </header>
     
@@ -555,10 +550,6 @@
                 </div>
                 
                 <div class="text-paragraph">
-                    Также следует учитывать, что рифампицин может повлиять на некоторые лабораторные тесты, поэтому важно сообщить лаборатории о приёме препарата перед обследованиями.
-                </div>
-                
-                <div class="text-paragraph">
                     <span class="key-point">О любых новых препаратах, витаминах или добавках необходимо сообщать лечащему врачу</span>, так как рифампицин вступает во многие лекарственные взаимодействия и может резко изменить концентрацию сопутствующих средств в крови.
                 </div>
             </div>
@@ -642,71 +633,6 @@
                     }
                 });
             });
-            
-            // Исправляем проблему с выделениями и знаками препинания
-            function fixHighlighting() {
-                // Находим все выделенные фрагменты
-                const keyPoints = document.querySelectorAll('.key-point');
-                
-                keyPoints.forEach(point => {
-                    let text = point.textContent;
-                    
-                    // Если выделение заканчивается знаком препинания, который стоит отдельно
-                    const punctuationAtEnd = /([.,:;!?])$/;
-                    const punctuationAtStart = /^([.,:;!?])/;
-                    
-                    // Проверяем, есть ли знак препинания в конце
-                    if (punctuationAtEnd.test(text)) {
-                        // Получаем знак препинания
-                        const punctuation = text.match(punctuationAtEnd)[1];
-                        
-                        // Убираем знак препинания из выделения
-                        point.textContent = text.slice(0, -1);
-                        
-                        // Создаем элемент для знака препинания
-                        const punctSpan = document.createElement('span');
-                        punctSpan.textContent = punctuation;
-                        punctSpan.style.marginLeft = '-2px';
-                        
-                        // Вставляем знак препинания после выделения
-                        point.parentNode.insertBefore(punctSpan, point.nextSibling);
-                    }
-                    
-                    // Проверяем, есть ли знак препинания в начале
-                    if (punctuationAtStart.test(text)) {
-                        // Получаем знак препинания
-                        const punctuation = text.match(punctuationAtStart)[1];
-                        
-                        // Убираем знак препинания из выделения
-                        point.textContent = text.slice(1);
-                        
-                        // Создаем элемент для знака препинания
-                        const punctSpan = document.createElement('span');
-                        punctSpan.textContent = punctuation;
-                        punctSpan.style.marginRight = '-2px';
-                        
-                        // Вставляем знак препинания перед выделением
-                        point.parentNode.insertBefore(punctSpan, point);
-                    }
-                });
-                
-                // Вторая попытка: просто добавляем знаки препинания внутрь выделения
-                const paragraphs = document.querySelectorAll('.text-paragraph');
-                paragraphs.forEach(paragraph => {
-                    let html = paragraph.innerHTML;
-                    
-                    // Ищем ситуации, где знак препинания стоит сразу после закрывающего </span>
-                    html = html.replace(/<\/span>\s*([.,:;!?])/g, '$1</span>');
-                    
-                    // Ищем ситуации, где знак препинания стоит перед открывающим <span>
-                    html = html.replace(/([.,:;!?])\s*<span/g, '<span>$1');
-                    
-                    paragraph.innerHTML = html;
-                });
-            }
-            
-            // Вызываем функцию после загрузки страницы
-            setTimeout(fixHighlighting, 100);
             
             // Обработка изменения размера окна
             function checkMobile() {

@@ -33,13 +33,6 @@
             line-height: 1.6;
             padding: 0;
             margin: 0;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
         }
         
         .container {
@@ -63,17 +56,7 @@
         header h1 {
             font-size: 1.8rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
             text-align: center;
-        }
-        
-        header h1 i {
-            color: var(--light-color);
-            font-size: 2rem;
         }
         
         header p {
@@ -162,18 +145,7 @@
             padding: 25px;
             box-shadow: var(--shadow);
             margin-top: 15px;
-            animation: fadeIn 0.5s ease;
             width: 100%;
-            text-align: left;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .drug-info-container.active {
@@ -190,7 +162,6 @@
             padding-bottom: 15px;
             border-bottom: 2px solid var(--light-color);
             width: 100%;
-            text-align: left;
         }
         
         .drug-title {
@@ -217,13 +188,6 @@
             overflow-y: visible;
             padding-right: 0;
             width: 100%;
-            text-align: left;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
         }
         
         .text-paragraph {
@@ -232,23 +196,11 @@
             border-left: 4px solid var(--secondary-color);
             padding-top: 8px;
             padding-bottom: 8px;
-            position: relative;
-            text-align: left;
-            transition: var(--transition);
             width: 100%;
             font-size: 1.15rem;
             line-height: 1.65;
-            word-spacing: normal;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-        }
-        
-        .text-paragraph:hover {
-            border-left-color: var(--primary-color);
-            background-color: rgba(74, 158, 204, 0.05);
-            padding-left: 18px;
+            text-align: justify;
+            text-justify: inter-word;
         }
         
         .text-paragraph.warning {
@@ -256,17 +208,9 @@
             background-color: rgba(230, 57, 70, 0.05);
         }
         
-        .text-paragraph.warning:hover {
-            background-color: rgba(230, 57, 70, 0.08);
-        }
-        
         .text-paragraph.important {
             border-left-color: var(--warning-color);
             background-color: rgba(255, 158, 0, 0.05);
-        }
-        
-        .text-paragraph.important:hover {
-            background-color: rgba(255, 158, 0, 0.08);
         }
         
         .key-point {
@@ -276,10 +220,6 @@
             border-radius: 3px;
             font-weight: 600;
             margin: 0;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-            /* Включаем знаки препинания внутрь выделения */
-            white-space: nowrap;
         }
         
         footer {
@@ -311,11 +251,6 @@
             
             header h1 {
                 font-size: 1.6rem;
-                gap: 10px;
-            }
-            
-            header h1 i {
-                font-size: 1.8rem;
             }
             
             header p {
@@ -361,8 +296,6 @@
                 margin-top: 10px;
                 border-radius: 8px;
                 width: 100%;
-                text-align: left;
-                hyphens: auto;
             }
             
             .drug-header {
@@ -386,8 +319,6 @@
                 max-height: none;
                 overflow-y: visible;
                 padding-right: 0;
-                text-align: left;
-                hyphens: auto;
             }
             
             .text-paragraph {
@@ -395,13 +326,7 @@
                 padding-left: 12px;
                 font-size: 1.1rem;
                 line-height: 1.6;
-                text-align: left;
-                word-spacing: normal;
-                hyphens: auto;
-            }
-            
-            .text-paragraph:hover {
-                padding-left: 15px;
+                text-align: justify;
             }
             
             footer {
@@ -417,10 +342,6 @@
                 color: var(--primary-color);
                 font-weight: 600;
                 font-size: 0.95rem;
-            }
-            
-            .desktop-only {
-                display: none;
             }
         }
         
@@ -438,24 +359,11 @@
             
             .text-paragraph {
                 font-size: 1.05rem;
-                text-align: left;
-                word-spacing: normal;
-                hyphens: auto;
             }
             
             header h1 {
                 font-size: 1.4rem;
             }
-        }
-        
-        /* Убираем скроллбар */
-        .drug-text-content::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .drug-text-content {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
     </style>
 </head>
@@ -631,7 +539,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const drugButtons = document.querySelectorAll('.drug-btn');
             const drugInfoContainers = document.querySelectorAll('.drug-info-container');
-            const drugSelectorSection = document.querySelector('.drug-selector');
             
             drugButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -647,41 +554,34 @@
                     const selectedContainer = document.getElementById(`${drugId}-info`);
                     selectedContainer.classList.add('active');
                     
-                    // Прокрутка к выбранному препарату на мобильных устройствах
                     if (window.innerWidth <= 768) {
                         selectedContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
             
-            // Функция для автоматического исправления выделений со знаками препинания
-            function fixPunctuationInHighlights() {
-                const paragraphs = document.querySelectorAll('.text-paragraph');
+            // Функция для исправления знаков препинания
+            function fixPunctuation() {
+                const keyPoints = document.querySelectorAll('.key-point');
                 
-                paragraphs.forEach(paragraph => {
-                    let html = paragraph.innerHTML;
+                keyPoints.forEach(point => {
+                    const text = point.textContent;
                     
-                    // 1. Ищем ситуации, где после выделения идет знак препинания
-                    // И добавляем его внутрь выделения
-                    html = html.replace(
-                        /<span class="key-point">([^<]+?)<\/span>\s*([.,:;!?])/g,
-                        '<span class="key-point">$1$2</span>'
-                    );
-                    
-                    // 2. Ищем ситуации, где перед выделением стоит знак препинания
-                    html = html.replace(
-                        /([.,:;!?])\s*<span class="key-point">/g,
-                        '<span class="key-point">$1'
-                    );
-                    
-                    paragraph.innerHTML = html;
+                    // Если после выделения в HTML идет знак препинания
+                    const nextSibling = point.nextSibling;
+                    if (nextSibling && nextSibling.nodeType === 3) {
+                        const nextText = nextSibling.textContent;
+                        if (nextText && /^[.,:;!?]/.test(nextText)) {
+                            // Перемещаем знак препинания внутрь выделения
+                            point.textContent = text + nextText.charAt(0);
+                            nextSibling.textContent = nextText.substring(1);
+                        }
+                    }
                 });
             }
             
-            // Вызываем функцию для исправления знаков препинания
-            setTimeout(fixPunctuationInHighlights, 100);
+            setTimeout(fixPunctuation, 100);
             
-            // Обработка изменения размера окна
             function checkMobile() {
                 if (window.innerWidth <= 768) {
                     document.querySelector('.mobile-only').style.display = 'block';
